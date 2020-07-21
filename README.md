@@ -11,7 +11,7 @@ make
 
 if you want build for linux:
 
-```
+```bash
 cd pressure-test-toy
 make linux
 ```
@@ -25,6 +25,6 @@ make linux
 output:
 
 ```log
-avg response time:	0.07s
+avg response time:	0.08s
 95% response time:	0.07s
 ```
