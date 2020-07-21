@@ -28,7 +28,7 @@ func main() {
 
 	u := &pkg.UrlWorkFunc{URL: *targetURL}
 
-	w := &pkg.Work{
+	w := &pkg.Worker{
 		URL:           *targetURL,
 		ConcurrentNum: *concurrentNum,
 		TotalReqNum:   *totalReqNum,
