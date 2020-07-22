@@ -7,16 +7,16 @@ import (
 )
 
 type urlWorkFunc struct {
-	URL string
+	url string
 }
 
 func NewUrlWorkFunc(url string) WorkFunc {
-	return &urlWorkFunc{URL: url}
+	return &urlWorkFunc{url: url}
 }
 
 func (u *urlWorkFunc) DoWork() int64 {
 	start := time.Now().UnixNano()
-	_, err := http.Get(u.URL)
+	_, err := http.Get(u.url)
 	if err != nil {
 		fmt.Println(err)
 	}

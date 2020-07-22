@@ -17,39 +17,37 @@ func (m *mockWorkFunc) DoWork() int64 {
 func TestWorker_BuildWorker(t *testing.T) {
 	total := 1
 	w := &worker{
-		URL:           "http://www.example.com",
-		TotalReqNum:   total,
-		ConcurrentNum: 1,
-		JobsCh:        make(chan struct{}, total),
-		ResultCh:      make(chan int64, total),
+		url:           "http://www.example.com",
+		totalReqNum:   total,
+		concurrentNum: 1,
+		jobsCh:        make(chan struct{}, total),
+		resultCh:      make(chan int64, total),
 	}
 	now := time.Now().Unix()
 
 	w.BuildWorker(&mockWorkFunc{now: now})
 
-	w.JobsCh <- struct{}{}
+	w.jobsCh <- struct{}{}
 
-	res := <-w.ResultCh
+	res := <-w.resultCh
 	assert.Equal(t, res, now)
 }
 
 func TestWorker_BuildJobs(t *testing.T) {
 	total := 5
 	w := &worker{
-		URL:           "http://www.example.com",
-		TotalReqNum:   total,
-		ConcurrentNum: 1,
-		JobsCh:        make(chan struct{}, total),
-		ResultCh:      make(chan int64, total),
+		url:           "http://www.example.com",
+		totalReqNum:   total,
+		concurrentNum: 1,
+		jobsCh:        make(chan struct{}, total),
+		resultCh:      make(chan int64, total),
 	}
-
-	//w.BuildWorker(&mockWorkFunc{now: time.Now().Unix()})
 
 	w.BuildJobs()
 
 	var count int
 
-	for range w.JobsCh {
+	for range w.jobsCh {
 		count++
 		if count == total {
 			break
@@ -62,11 +60,11 @@ func TestWorker_BuildJobs(t *testing.T) {
 func TestWorker_PrintStatistic(t *testing.T) {
 	total := 5
 	w := &worker{
-		URL:           "http://www.example.com",
-		TotalReqNum:   total,
-		ConcurrentNum: 1,
-		JobsCh:        make(chan struct{}, total),
-		ResultCh:      make(chan int64, total),
+		url:           "http://www.example.com",
+		totalReqNum:   total,
+		concurrentNum: 1,
+		jobsCh:        make(chan struct{}, total),
+		resultCh:      make(chan int64, total),
 	}
 
 	now := time.Now().Unix()

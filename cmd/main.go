@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	targetURL     = flag.String("url", "", "target URL for pressure test")
+	targetURL     = flag.String("url", "", "target url for pressure test")
 	concurrentNum = flag.Int("concurrentNum", 1, "concurrency number")
 	totalReqNum   = flag.Int("totalReqNum", 1, "total request number")
 )
