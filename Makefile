@@ -15,9 +15,9 @@ default: darwin
 linux:
 
 	CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o "${linux}" cmd/main.go
-	#upx ${linux}
+	upx ${linux}
 
 darwin:
 
 	CGO_ENABLE=0 GOOS=darwin GOARCH=amd64 go build -o "${darwin}" cmd/main.go
-	#upx ${darwin}
+	upx ${darwin}
