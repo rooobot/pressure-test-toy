@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"net/url"
-	"pressure-test-toy/pkg"
+	"pressure-test-toy/pkg/worker"
 )
 
 var (
@@ -26,8 +26,8 @@ func main() {
 		return
 	}
 
-	u := pkg.NewUrlWorkFunc(*targetURL)
-	w := pkg.NewWorker(*targetURL, *concurrentNum, *totalReqNum)
+	u := worker.NewUrlWorkFunc(*targetURL)
+	w := worker.NewWorker(*targetURL, *concurrentNum, *totalReqNum)
 
 	w.BuildWorker(u)
 	w.BuildJobs()

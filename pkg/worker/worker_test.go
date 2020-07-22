@@ -1,4 +1,4 @@
-package pkg
+package worker
 
 import (
 	"github.com/magiconair/properties/assert"
@@ -16,7 +16,7 @@ func (m *mockWorkFunc) DoWork() int64 {
 
 func TestWorker_BuildWorker(t *testing.T) {
 	total := 1
-	w := &Worker{
+	w := &worker{
 		URL:           "http://www.example.com",
 		TotalReqNum:   total,
 		ConcurrentNum: 1,
@@ -35,7 +35,7 @@ func TestWorker_BuildWorker(t *testing.T) {
 
 func TestWorker_BuildJobs(t *testing.T) {
 	total := 5
-	w := &Worker{
+	w := &worker{
 		URL:           "http://www.example.com",
 		TotalReqNum:   total,
 		ConcurrentNum: 1,
@@ -61,7 +61,7 @@ func TestWorker_BuildJobs(t *testing.T) {
 
 func TestWorker_PrintStatistic(t *testing.T) {
 	total := 5
-	w := &Worker{
+	w := &worker{
 		URL:           "http://www.example.com",
 		TotalReqNum:   total,
 		ConcurrentNum: 1,

@@ -1,4 +1,4 @@
-package pkg
+package worker
 
 import "fmt"
 
