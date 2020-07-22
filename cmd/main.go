@@ -26,19 +26,10 @@ func main() {
 		return
 	}
 
-	u := &pkg.UrlWorkFunc{URL: *targetURL}
-
-	w := &pkg.Worker{
-		URL:           *targetURL,
-		ConcurrentNum: *concurrentNum,
-		TotalReqNum:   *totalReqNum,
-		JobsCh:        make(chan struct{}, *totalReqNum),
-		ResultCh:      make(chan int64, *totalReqNum),
-	}
+	u := pkg.NewUrlWorkFunc(*targetURL)
+	w := pkg.NewWorker(*targetURL, *concurrentNum, *totalReqNum)
 
 	w.BuildWorker(u)
-
 	w.BuildJobs()
-
 	w.PrintStatistic()
 }

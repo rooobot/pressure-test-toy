@@ -2,7 +2,7 @@ package pkg
 
 import "fmt"
 
-type Worker struct {
+type worker struct {
 	URL           string
 	TotalReqNum   int
 	ConcurrentNum int
@@ -10,25 +10,35 @@ type Worker struct {
 	ResultCh      chan int64
 }
 
+func NewWorker(url string, concurrentNum int, totalReqNum int) *worker {
+	return &worker{
+		URL:           url,
+		ConcurrentNum: concurrentNum,
+		TotalReqNum:   totalReqNum,
+		JobsCh:        make(chan struct{}, totalReqNum),
+		ResultCh:      make(chan int64, totalReqNum),
+	}
+}
+
 type WorkFunc interface {
 	DoWork() int64
 }
 
-func (w *Worker) BuildWorker(wf WorkFunc) {
+func (w *worker) BuildWorker(wf WorkFunc) {
 	for i := 1; i <= w.ConcurrentNum; i++ {
 		go doWork(wf, w.JobsCh, w.ResultCh)
 		//fmt.Println("worker ", i, " initialized")
 	}
 }
 
-func (w *Worker) BuildJobs() {
+func (w *worker) BuildJobs() {
 	for i := 0; i < w.TotalReqNum; i++ {
 		w.JobsCh <- struct{}{}
 		//fmt.Println("add job ", i+1)
 	}
 }
 
-func (w *Worker) PrintStatistic() {
+func (w *worker) PrintStatistic() {
 	totalRespTime := int64(0)
 	nfpRespTime := int64(0)
 	nfpCount := int(float64(w.TotalReqNum) * 0.95)

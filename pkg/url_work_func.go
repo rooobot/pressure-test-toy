@@ -6,11 +6,15 @@ import (
 	"time"
 )
 
-type UrlWorkFunc struct {
+type urlWorkFunc struct {
 	URL string
 }
 
-func (u *UrlWorkFunc) DoWork() int64 {
+func NewUrlWorkFunc(url string) WorkFunc {
+	return &urlWorkFunc{URL: url}
+}
+
+func (u *urlWorkFunc) DoWork() int64 {
 	start := time.Now().UnixNano()
 	_, err := http.Get(u.URL)
 	if err != nil {
