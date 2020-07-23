@@ -51,9 +51,13 @@ func (w *worker) PrintStatistic() {
 	}
 
 	fmt.Println("")
-	fmt.Printf("avg response time:\t%.2Fs\n", float64(totalRespTime)/float64(w.totalReqNum)/float64(1000000000))
-	fmt.Printf("95%% response time:\t%.2Fs\n", float64(nfpRespTime)/float64(nfpCount)/float64(1000000000))
+	fmt.Printf("avg response time:\t%.2Fs\n", calcRespTime(totalRespTime, w.totalReqNum))
+	fmt.Printf("95%% response time:\t%.2Fs\n", calcRespTime(nfpRespTime, nfpCount))
 	fmt.Println("")
+}
+
+func calcRespTime(totalNanoTime int64, totalCount int) float64 {
+	return float64(totalNanoTime)/float64(totalCount)/float64(1000000000)
 }
 
 func doWork(wf WorkFunc, jobs <-chan struct{}, respTimeCh chan<- int64) {
